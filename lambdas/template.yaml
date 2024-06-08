@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+
+Resources:
+  UpsertRsvpFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: upsert-rsvp-status/
+      Handler: bootstrap 
+      Runtime: provided.al2
+      Role: !GetAtt UpsertRsvpExecutionRole.Arn
+      Events:
+        CatchAll:
+          Type: Api 
+          Properties:
+            Path: /rsvp
+            Method: GET
+      Environment:
+        Variables:
+          PARAM1: VALUE
+    Metadata:
+      BuildMethod: makefile
+
+  UpsertRsvpExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties: 
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Principal: 
+              Service: 
+                - "lambda.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Policies: 
+        - PolicyName: "LambdaSSMParameterAccess"
+          PolicyDocument: 
+            Version: "2012-10-17"
+            Statement: 
+              - Effect: "Allow"
+                Action: 
+                  - "ssm:GetParameter"
+                Resource: 
+                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/database/guest_info/table_name"
+
+Outputs:
+  RsvpApi:
+    Description: "API Gateway endpoint URL for RSVP resources"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/rsvp/"

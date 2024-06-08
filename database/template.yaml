@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  GuestInfoTableName:
+    Type: String
+    Description: "The name of the DynamoDB table to store guest information"
+    AllowedPattern: "^[a-zA-Z0-9-_.]+$"
+    MinLength: 3
+    MaxLength: 255
+    ConstraintDescription: "The contraints match the constaints for DynamoDB table names."
+
+
+Resources:
+  GuestInfoTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: !Ref GuestInfoTableName
+      AttributeDefinitions: 
+        - AttributeName: cognito_guid
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: cognito_guid
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification: 
+        SSEEnabled: true
+
