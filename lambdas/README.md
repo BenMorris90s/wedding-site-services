@@ -2,8 +2,6 @@
 
 API for connecting to the Guest Info table.
 
-## Request 
-
 ## Running Locally
 
 ```bash
