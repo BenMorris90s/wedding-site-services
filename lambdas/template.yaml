@@ -18,7 +18,7 @@ Resources:
             Method: GET
       Environment:
         Variables:
-          PARAM1: VALUE
+          GUEST_INFO_PARAMETER_NAME: /database/guest_info/table_name
     Metadata:
       BuildMethod: makefile
 
