@@ -1,8 +1,8 @@
-# wedding-site-services
-Backend services for the wedding client
+## Lambda API
 
-RSVP Status
-Allergies & Menu Choices
+API for connecting to the Guest Info table.
+
+## Request 
 
 # Running Locally
 
@@ -10,6 +10,12 @@ Allergies & Menu Choices
   ./run_local.sh
 ```
 
+Trigger lambda once running with:
+
 ```bash
   curl http://127.0.0.1:3000/rsvp
 ```
+
+## Deployment
+
+Currently a work in progress and not implemented.
