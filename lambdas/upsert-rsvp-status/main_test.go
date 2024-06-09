@@ -2,11 +2,11 @@ package main
 
 import (
 	"context"
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ssm"
 	"github.com/aws/aws-sdk-go-v2/service/ssm/types"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 type MockSSMClient struct {
@@ -16,7 +16,6 @@ type MockSSMClient struct {
 func (m *MockSSMClient) GetParameter(ctx context.Context, input *ssm.GetParameterInput, opts ...func(*ssm.Options)) (*ssm.GetParameterOutput, error) {
 	return m.GetParameterFunc(ctx, input, opts...)
 }
-
 
 // Basic test to get mocking of AWS clients working and unit tets running in pre push hook. Will be replaced with more comprehensive tests once
 // DynamoDB related functions and more complex functions are written.
@@ -34,13 +33,11 @@ func TestGetSSMParameter(t *testing.T) {
 		},
 	}
 
-
 	ctx := context.TODO()
 	param_name := "testParam"
 	with_decryption := true
 
 	value, err := get_ssm_parameter(param_name, with_decryption, mockSSM, ctx)
-
 
 	assert.Equal(t, value, expected_value)
 	assert.Equal(t, expected_error, err)
