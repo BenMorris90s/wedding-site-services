@@ -37,5 +37,11 @@ Download Go:
 
 https://go.dev/doc/install
 
+And download golangci-lint:
+
+https://golangci-lint.run/welcome/install/
+
+Install this locally as linting is currently performed locally and not yet as part of a CI process.
+
 Finally, follow the steps in the database/README.md file to deploy the dynamo table and associated SSM parameters. 
 The Lambda API will query these when running locally or in the cloud, so they must be deployed in order to develop the Lambda API.
