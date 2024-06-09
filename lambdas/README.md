@@ -19,3 +19,11 @@ Trigger lambda once running with:
 ## Deployment
 
 Currently a work in progress and not implemented.
+
+## Testing
+
+```bash
+  cd ./upsert-rsvp-status 
+  go test
+```
+Yet to be added to a CI step in Github, so can be run on a pre push git hook locally.

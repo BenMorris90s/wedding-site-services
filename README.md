@@ -3,7 +3,7 @@
 This is a work in progress exercise to create a website capable of receiving wedding guest RSVPs and dietary requirements, as well as the location and date of the
 wedding venue.
 
-I am working on this in my spare time primarily in order to gain a familiarity with Go, which I have not used in a professional capacity.
+I am working on this in my spare time primarily in order to gain a familiarity with Go.
 
 ## Project Requirements
 
@@ -13,10 +13,10 @@ https://portal.aws.amazon.com/billing/signup#/start/email
 
 As a minimum, your user will need to have permissions to create the following:
 
-  CloudFormation stacks
-  SSM Parameters
-  DynamoDB resources
-  Lambda resources
+CloudFormation stacks
+SSM Parameters
+DynamoDB resources
+Lambda resources
 
 Download the AWS CLI:
 
