@@ -4,7 +4,7 @@ API for connecting to the Guest Info table.
 
 ## Request 
 
-# Running Locally
+## Running Locally
 
 ```bash
   ./run_local.sh
