@@ -13,10 +13,10 @@ https://portal.aws.amazon.com/billing/signup#/start/email
 
 As a minimum, your user will need to have permissions to create the following:
 
-CloudFormation stacks
-SSM Parameters
-DynamoDB resources
-Lambda resources
+CloudFormation stacks  
+SSM Parameters  
+DynamoDB resources  
+Lambda resources  
 
 Download the AWS CLI:
 
