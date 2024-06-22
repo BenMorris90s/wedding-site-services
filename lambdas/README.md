@@ -29,7 +29,7 @@ The settings in samconfig.toml are used by the deploy script. Change these if ne
     ./deploy.sh
 ```
 
-GET endpoint can be hit with
+Upsert RSVP endpoint can be hit with
 
 ```bash
     curl -X POST https://{MY_API_GATEWAY_ID}.execute-api.eu-west-2.amazonaws.com/Prod/rsvp \                                         
