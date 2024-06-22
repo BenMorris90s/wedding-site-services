@@ -6,6 +6,13 @@ Parameters:
     Description: The name of the Upsert RSVP function
     Type: String
     Default: upsert-rsvp
+  GuestInfoTableName:
+    Type: String
+    Description: "The name of the DynamoDB table to store guest information"
+    AllowedPattern: "^[a-zA-Z0-9-_.]+$"
+    MinLength: 3
+    MaxLength: 255
+    ConstraintDescription: "The contraints match the constraints for DynamoDB table names."
 
 Resources:
   UpsertRsvpFunction:
@@ -23,7 +30,7 @@ Resources:
           Type: Api 
           Properties:
             Path: /rsvp
-            Method: GET
+            Method: POST
       Environment:
         Variables:
           GUEST_INFO_PARAMETER_NAME: /database/guest_info/table_name
@@ -69,6 +76,15 @@ Resources:
                   - ssm:GetParameter
                 Resource: 
                   - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/database/guest_info/table_name
+        - PolicyName: LambdaInsertGuestInfo
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:PutItem
+                Resource:
+                  - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${GuestInfoTableName}
 
 Outputs:
   RsvpApi:

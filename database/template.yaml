@@ -7,7 +7,7 @@ Parameters:
     AllowedPattern: "^[a-zA-Z0-9-_.]+$"
     MinLength: 3
     MaxLength: 255
-    ConstraintDescription: "The contraints match the constaints for DynamoDB table names."
+    ConstraintDescription: "The contraints match the constraints for DynamoDB table names."
 
 
 Resources:
@@ -24,4 +24,3 @@ Resources:
       BillingMode: PAY_PER_REQUEST
       SSESpecification: 
         SSEEnabled: true
-
