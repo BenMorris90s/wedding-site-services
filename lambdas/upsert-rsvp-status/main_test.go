@@ -20,25 +20,24 @@ func (m *MockSSMClient) GetParameter(ctx context.Context, input *ssm.GetParamete
 // Basic test to get mocking of AWS clients working and unit tets running in pre push hook. Will be replaced with more comprehensive tests once
 // DynamoDB related functions and more complex functions are written.
 func TestGetSSMParameter(t *testing.T) {
-	const expected_value = "myDbName"
-	expected_error := error(nil)
+	const expectedValue = "myDbName"
+	expectedError := error(nil)
 
 	mockSSM := &MockSSMClient{
 		GetParameterFunc: func(ctx context.Context, input *ssm.GetParameterInput, opts ...func(*ssm.Options)) (*ssm.GetParameterOutput, error) {
 			return &ssm.GetParameterOutput{
 				Parameter: &types.Parameter{
-					Value: aws.String(expected_value),
+					Value: aws.String(expectedValue),
 				},
-			}, expected_error
+			}, expectedError
 		},
 	}
 
 	ctx := context.TODO()
-	param_name := "testParam"
-	with_decryption := true
+	paramName := "testParam"
 
-	value, err := getSsmParameter(param_name, with_decryption, mockSSM, ctx)
+	value, err := getSsmParameter(paramName, true, mockSSM, ctx)
 
-	assert.Equal(t, value, expected_value)
-	assert.Equal(t, expected_error, err)
+	assert.Equal(t, value, expectedValue)
+	assert.Equal(t, expectedError, err)
 }
