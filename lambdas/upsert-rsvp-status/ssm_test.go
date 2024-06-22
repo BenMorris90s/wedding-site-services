@@ -11,7 +11,7 @@ import (
 	"upsert-rsvp-status/mocks"
 )
 
-func TestGetSSMParameter(t *testing.T) {
+func TestGetSSMParameterCalledWithCorrectArgs(t *testing.T) {
 	const expectedValue = "myDbName"
 	expectedError := error(nil)
 
