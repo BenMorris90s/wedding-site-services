@@ -43,4 +43,11 @@ GET endpoint can be hit with
   cd ./upsert-rsvp-status 
   go test
 ```
+
+Generate mocks with mockgen as needed. An example is the mock generated for the DynamoDB interface in dynamo.go:
+
+```bash
+  mockgen -destination=mocks/dynamodb_client_mock.go -package=mocks -source dynamo.go DynamoDbClientInterface
+```
+
 Yet to be added to a CI step in Github, so can be run on a pre push git hook locally.
