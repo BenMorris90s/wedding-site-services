@@ -1,0 +1,9 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "guest-info-lambda-api"
+resolve_s3 = true
+s3_prefix = "guest-info-lambda-api"
+region = "eu-west-2"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

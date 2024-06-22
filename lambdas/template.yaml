@@ -1,14 +1,22 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Parameters:
+  UpsertRsvpFunctionName:
+    Description: The name of the Upsert RSVP function
+    Type: String
+    Default: upsert-rsvp
 
 Resources:
   UpsertRsvpFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: upsert-rsvp-status/
-      Handler: bootstrap 
-      Runtime: provided.al2
+      Handler: bootstrap
+      FunctionName: !Ref UpsertRsvpFunctionName
+      Runtime: provided.al2023
+      PackageType: Zip
+      Architectures: [arm64]
       Role: !GetAtt UpsertRsvpExecutionRole.Arn
       Events:
         CatchAll:
@@ -20,32 +28,49 @@ Resources:
         Variables:
           GUEST_INFO_PARAMETER_NAME: /database/guest_info/table_name
     Metadata:
-      BuildMethod: makefile
+      BuildMethod: go1.x
+
+  UpsertRsvpFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${UpsertRsvpFunctionName}
+      RetentionInDays: 14
 
   UpsertRsvpExecutionRole:
-    Type: "AWS::IAM::Role"
+    Type: AWS::IAM::Role
     Properties: 
       AssumeRolePolicyDocument: 
-        Version: "2012-10-17"
+        Version: 2012-10-17
         Statement: 
-          - Effect: "Allow"
+          - Effect: Allow
             Principal: 
               Service: 
-                - "lambda.amazonaws.com"
+                - lambda.amazonaws.com
             Action: 
-              - "sts:AssumeRole"
-      Policies: 
-        - PolicyName: "LambdaSSMParameterAccess"
+              - sts:AssumeRole
+      Policies:
+        - PolicyName: LambdaLoggingPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/${UpsertRsvpFunctionName}:*
+        - PolicyName: LambdaSSMParameterAccess
           PolicyDocument: 
-            Version: "2012-10-17"
+            Version: 2012-10-17
             Statement: 
-              - Effect: "Allow"
+              - Effect: Allow
                 Action: 
-                  - "ssm:GetParameter"
+                  - ssm:GetParameter
                 Resource: 
-                  - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/database/guest_info/table_name"
+                  - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/database/guest_info/table_name
 
 Outputs:
   RsvpApi:
-    Description: "API Gateway endpoint URL for RSVP resources"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/rsvp/"
+    Description: API Gateway endpoint URL for RSVP resources
+    Value: !Sub https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/rsvp/

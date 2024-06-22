@@ -16,9 +16,19 @@ Trigger lambda once running with:
 
 ## Deployment
 
-Currently a work in progress and not implemented.
+The settings in samconfig.toml are used by the deploy script. Change these if needed.
 
-## Testing
+```bash
+    ./deploy.sh
+```
+
+GET endpoint can be hit with
+
+```bash
+    curl https://23z5anklf9.execute-api.eu-west-2.amazonaws.com/Prod/rsvp
+```
+
+## Unit Tests
 
 ```bash
   cd ./upsert-rsvp-status 
