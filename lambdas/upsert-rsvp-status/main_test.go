@@ -37,7 +37,7 @@ func TestGetSSMParameter(t *testing.T) {
 	param_name := "testParam"
 	with_decryption := true
 
-	value, err := get_ssm_parameter(param_name, with_decryption, mockSSM, ctx)
+	value, err := getSsmParameter(param_name, with_decryption, mockSSM, ctx)
 
 	assert.Equal(t, value, expected_value)
 	assert.Equal(t, expected_error, err)

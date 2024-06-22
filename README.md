@@ -22,7 +22,7 @@ Download the AWS CLI:
 
 https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 
-Create programatic access credentials for your IAM user and configure your machine locally with:
+Create programmatic access credentials for your IAM user and configure your machine locally with:
 
 ```bash
   aws configure
